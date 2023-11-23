@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://static.tildacdn.com/tild3336-3264-4139-b239-663535313738/Group_17.svg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Boykov</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F9F6EF;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-shape {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            background-color: #FF9A8B;
+            top: 20%;
+            left: 10%;
+        }
+
+        .shape-2 {
+            width: 100px;
+            height: 100px;
+            background-color: #78DCE8;
+            top: 50%;
+            left: 70%;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background-color: #FFD700;
+            top: 70%;
+            left: 30%;
+        }
+
+        .shape-4 {
+            width: 120px;
+            height: 120px;
+            background-color: #7FFF00;
+            top: 10%;
+            left: 50%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto 0; /* Добавлен отступ сверху */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 36px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 18px;
+        }
+
+        .photo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #FF9A8B;
+            transition: transform 0.3s ease;
+        }
+
+        .photo:hover {
+            transform: scale(1.1);
+        }
+
+        .text-container {
+            text-align: center;
+        }
+
+        .text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #555;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+            .modal-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+            .close-button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 24px;
+                cursor: pointer;
+        }
+
+            .modal-image {
+                max-width: 100%;
+                max-height: 80vh;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="background-shape shape-1"></div>
+        <div class="background-shape shape-2"></div>
+        <div class="background-shape shape-3"></div>
+        <div class="background-shape shape-4"></div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Nikita Boykov</h1>
+        </div>
+        <div class="photo-container">
+            <img class="photo" src="https://sun9-77.userapi.com/impg/7MDuuUS8Eyq9_AtM7dgnswB26YaXcbJMI27VCA/62BS_6TkQ_o.jpg?size=828x828&quality=95&sign=4f7d1f888280b53aa4a1bdba36bc46c5&type=album" alt="Ваше фото">
+        </div>
+        <div class="text-container">
+            <p class="text">🌟 Никита
+                <br>
+                👨‍💻 Начинающий программист
+                <br>
+                📚 Обучение в Техникуме имени Ф. В. Чижова
+                <br>
+                💻 Страсть к созданию веб-сайтов
+                <br>
+                🌐 Открыт к новым вызовам и возможностям
+                <br>
+                🚀 Моя цель - исследовать мир программирования и создавать удивительные веб-решения.
+                <br>
+                🌈 Постоянно вдохновляюсь новыми технологиями и идеями, стремлюсь сделать веб лучше и удобнее для всех.
+                <br>
+                📧 Контакты:
+                <br>
+                📩 Электронная почта: nikitoz0345@gmail.com
+                <br>
+                📱 Телефон: 8(953)-641-56-96
+                <br>
+                🌐 Веб-сайт: нету денег на сервер(
+                    <br>
+                Давайте сделаем будущее интернета еще более захватывающим вместе! 💡🚀</p>
+        </div>
+    </div>
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <img class="modal-image" src="" alt="Открытое фото">
+        </div>
+    </div>
+</body>
+<script>
+    // Находите фото и модальное окно
+    var photo = document.querySelector(".photo");
+    var photoModal = document.getElementById("photoModal");
+    var modalImage = document.querySelector(".modal-image");
+
+    // Находите кнопку для закрытия модального окна
+    var closeModal = document.getElementById("closeModal");
+
+    // Открываете модальное окно и устанавливаете изображение при нажатии на фото
+    photo.addEventListener("click", function() {
+        photoModal.style.display = "block";
+        modalImage.src = this.src;
+    });
+
+    // Закрываете модальное окно при нажатии на кнопку закрытия
+    closeModal.addEventListener("click", function() {
+        photoModal.style.display = "none";
+    });
+
+    // Закрываете модальное окно при клике за его пределами
+    window.addEventListener("click", function(event) {
+        if (event.target == photoModal) {
+            photoModal.style.display = "none";
+        }
+    });
+</script>
+</html>
